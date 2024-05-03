@@ -14,17 +14,14 @@ pipeline {
                 echo "Running integration tests using Selenium"
             }
             post {
-                success {
-                    mail to: "dotruongthanhan@gmail.com",
-                    subject: "Unit and Integration Tests",
-                    body: "Unit and Integration Tests SUCCEEDED",
-                    emailext attachLog: true
-                }
-                failure {
-                    mail to: "dotruongthanhan@gmail.com",
-                    subject: "Unit and Integration Tests",
-                    body: "Unit and Integration Tests FAILED",
-                    emailext attachLog: true
+                always {
+                    emailext(
+                            subject: "Unit and Integration Tests - ${currentBuild.result}",
+                            body: "Your build ${currentBuild.result}.",
+                            attachmentsPattern: "${currentBuild.rawBuild.getLogFile().path}",
+                            to: 'dotruongthanhan@egmail.com',
+                            mimeType: 'text/plain'
+                    )
                 }
             }
         }
@@ -38,17 +35,14 @@ pipeline {
                 echo "Perform a security scan on the code using OWASP"
             }
             post {
-                success {
-                    mail to: "dotruongthanhan@gmail.com",
-                    subject: "Security Scan",
-                    body: "Security Scan SUCCEEDED",
-                    emailext attachLog: true
-                }
-                failure {
-                    mail to: "dotruongthanhan@gmail.com",
-                    subject: "Security Scan",
-                    body: "Security Scan FAILED",
-                    emailext attachLog: true
+                always {
+                    emailext(
+                            subject: "Security Scan - ${currentBuild.result}",
+                            body: "Your build ${currentBuild.result}.",
+                            attachmentsPattern: "${currentBuild.rawBuild.getLogFile().path}",
+                            to: 'dotruongthanhan@egmail.com',
+                            mimeType: 'text/plain'
+                    )
                 }
             }
         }
