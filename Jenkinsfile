@@ -22,7 +22,7 @@ pipeline {
                 failure {
                     mail to: "dotruongthanhan@gmail.com",
                     subject: "[SIT223] Unit and Integration Tests Result",
-                    body: "Unit and Integration Tests - failed"
+                    body: "Unit and Integration Tests failed"
                 }
             }
         }
