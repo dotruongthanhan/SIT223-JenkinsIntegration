@@ -16,10 +16,10 @@ pipeline {
             post {
                 always {
                     emailext(
-                            subject: "Unit and Integration Tests - ${currentBuild.result}",
-                            body: "Your build ${currentBuild.result}.",
-                            attachmentsPattern: "${currentBuild.rawBuild.getLogFile().path}",
-                            to: 'dotruongthanhan@egmail.com',
+                            to: 'dotruongthanhan@gmail.com',
+                            subject: 'UNIT AND INTEGRATION TESTS',
+                            body: 'Build was successful!',
+                            attachLog: true,
                             mimeType: 'text/plain'
                     )
                 }
@@ -33,17 +33,6 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo "Perform a security scan on the code using OWASP"
-            }
-            post {
-                always {
-                    emailext(
-                            subject: "Security Scan - ${currentBuild.result}",
-                            body: "Your build ${currentBuild.result}.",
-                            attachmentsPattern: "${currentBuild.rawBuild.getLogFile().path}",
-                            to: 'dotruongthanhan@egmail.com',
-                            mimeType: 'text/plain'
-                    )
-                }
             }
         }
         stage('Deploy to Staging') {
