@@ -14,14 +14,10 @@ pipeline {
                 echo "Running integration tests using Selenium"
             }
             post {
-                always {
-                    emailext(
-                            to: 'dotruongthanhan@gmail.com',
-                            subject: 'UNIT AND INTEGRATION TESTS',
-                            body: 'Build was successful!',
-                            attachLog: true,
-                            mimeType: 'text/plain'
-                    )
+                success {
+                    mail to: "dotruongthanhan@gmail.com",
+                    subject: "UNIT AND INTEGRATION TESTS",
+                    body: "build was successful!!"
                 }
             }
         }
